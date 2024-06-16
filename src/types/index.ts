@@ -7,42 +7,30 @@ interface IProduct {
  "category": string;
  "title": string;
  "image": string;
- "cost": number;
+ "price": number;
  "description": string;
  "id": string;
 }
 
-interface IList<T> {
-  List: Map<string, T>;
-  returnList(): T[];
-  fillList(product: T | T[]): void;
+interface IList {
+  list: IProduct[];
 }
 
 interface IPerson {
   email: string;
-  telephone: string;
-  billingMethod: string;
+  phone: string;
+  payment: string;
   address: string;
 }
 
-interface UI<T> {
-  container: HTMLElement;
-  template: HTMLElement;
-  render(data: T | T[]): void;
+interface IBasketData {
+  basket: IProduct[];
+  total: number;
 }
 
-enum Events {
-  LIST_READY = 'user:list-ready',
-  ADD_CART = 'user:add-to-cart',
-  DELETE_CART = 'user:clear-cart',
-  DELETE_ITEM = 'user:clear-cart-item',
-  CONTACTS_DATA = 'user:contacts',
-  ADDRESS_DATA = 'user:address',
-  USER_DATA_READY = 'user:data-ready',
-  FILL_PAGE = 'ui:fill',
-  SHOW_PREVIEW = 'ui:preview',
-  CART_PAGE = 'ui:show-cart',
-  CONTACTS_PAGE = 'ui:show-contacts-page',
-  ADDRESS_PAGE = 'ui:show-address-page',
-  SUCCESS_PAGE = 'ui:show-success-page'
-};
+type FormError = Partial<Record<keyof IPerson, string>>;
+
+interface OrderResponse {
+  "id": string;
+  "total": number;
+}
