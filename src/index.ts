@@ -14,8 +14,11 @@ import { Order } from './components/Order';
 import { Person } from './components/Person';
 import { Success } from './components/Success';
 
+//Инстанцируем брокер событий
 const events = new EventEmitter();
-let productList;
+
+//Добавляем слушатели на события и связываем модель данных с отображением
+
 events.on('product-list:ready', (data: IProduct[]) => {
 	productList = new ProductList(data, events, Product);
 	productList.listItems.forEach((value) => {
@@ -165,6 +168,8 @@ events.on('complete:order', () => {
 		});
 });
 
+//Клонируем все шаблоны и выделяем все элементы приложения для работы
+
 const basketTemplate = cloneTemplate('#basket');
 const basketListItem = ensureElement('.basket__list', basketTemplate);
 const basketListItemTemplate =
@@ -188,6 +193,9 @@ ensureElement('.order-success__close', successTemplate).addEventListener(
 	}
 );
 
+//Создаём экземпляры классов для работы с приложением
+
+let productList;
 const api = new Api(API_URL);
 const page = new Page(pageContainer, counter);
 const modal = new Modal(modalTemplate, events);
@@ -203,6 +211,7 @@ const form = new Form(orderTemplate, contactsTemplate);
 const person = new Person(events);
 const success = new Success(successTemplate);
 
+//Работаем с API, получаем данные и инициируем событие
 api
 	.get('/product/')
 	.then((result: IApiResponse) => {
